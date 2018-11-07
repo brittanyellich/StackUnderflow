@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StackUnderflow.Data\StackUnderflow.Data.csproj" />
+    <ProjectReference Include="..\StackUnderflow.Entities\StackUnderflow.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

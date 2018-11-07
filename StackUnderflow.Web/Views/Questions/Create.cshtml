@@ -1,0 +1,65 @@
+﻿@model StackUnderflow.Entities.Question
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Question</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Text" class="control-label"></label>
+                <input asp-for="Text" class="form-control" />
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AskedBy" class="control-label"></label>
+                <input asp-for="AskedBy" class="form-control" />
+                <span asp-validation-for="AskedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AskedAt" class="control-label"></label>
+                <input asp-for="AskedAt" class="form-control" />
+                <span asp-validation-for="AskedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResponseSolutionId" class="control-label"></label>
+                <input asp-for="ResponseSolutionId" class="form-control" />
+                <span asp-validation-for="ResponseSolutionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Votes" class="control-label"></label>
+                <input asp-for="Votes" class="form-control" />
+                <span asp-validation-for="Votes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Topic" class="control-label"></label>
+                <select asp-for="Topic" class="form-control"></select>
+                <span asp-validation-for="Topic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
