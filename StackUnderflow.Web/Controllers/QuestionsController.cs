@@ -43,6 +43,24 @@ namespace StackUnderflow.Web.Controllers
             return View(question);
         }
 
+        // GET: Questions/Details/5
+        public async Task<IActionResult> Search(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var question = await _context.Questions
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (question == null)
+            {
+                return NotFound();
+            }
+
+            return View(question);
+        }
+
         // GET: Questions/Create
         public IActionResult Create()
         {

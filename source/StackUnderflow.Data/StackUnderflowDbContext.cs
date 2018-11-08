@@ -11,6 +11,9 @@ namespace StackUnderflow.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Response> Responses { get; set; }
         public DbSet<Question> Questions { get; set; }
+        public DbSet<QuestionVote> QuestionVotes { get; set; }
+        public DbSet<ResponseVote> ResponseVotes { get; set; }
+        public DbSet<CommentVote> CommentVotes { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //At some point you'll switch this out for an actual database

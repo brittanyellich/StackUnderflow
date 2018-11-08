@@ -26,13 +26,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">StackUnderflow.Web</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">StackUnderflow</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Questions" asp-action="Create">Ask a Question</a></li>
+                    @using (Html.BeginForm("Search", "Questions", FormMethod.Get))
+                    {
+                        <li>@Html.TextBox("id", ViewBag.CurrentFilter as string)</li>
+                        <li><input type="submit" value="Search" /></li>
+                    }
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
@@ -45,7 +49,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - StackUnderflow.Web</p>
+            <p>&copy; 2018 - StackUnderflow | <a asp-area="" asp-controller="Home" asp-action="About">About</a> | <a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></p> 
         </footer>
     </div>
 

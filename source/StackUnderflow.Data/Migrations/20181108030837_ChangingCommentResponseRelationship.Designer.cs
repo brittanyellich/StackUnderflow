@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StackUnderflow.Data;
 
 namespace StackUnderflow.Data.Migrations
 {
     [DbContext(typeof(StackUnderflowDbContext))]
-    partial class StackUnderflowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181108030837_ChangingCommentResponseRelationship")]
+    partial class ChangingCommentResponseRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,23 +44,6 @@ namespace StackUnderflow.Data.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("StackUnderflow.Entities.CommentVote", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CommentId");
-
-                    b.Property<bool>("Direction");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CommentVotes");
-                });
-
             modelBuilder.Entity("StackUnderflow.Entities.Question", b =>
                 {
                     b.Property<int>("Id")
@@ -84,23 +69,6 @@ namespace StackUnderflow.Data.Migrations
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("StackUnderflow.Entities.QuestionVote", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Direction");
-
-                    b.Property<int>("QuestionId");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("QuestionVotes");
-                });
-
             modelBuilder.Entity("StackUnderflow.Entities.Response", b =>
                 {
                     b.Property<int>("Id")
@@ -124,23 +92,6 @@ namespace StackUnderflow.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Responses");
-                });
-
-            modelBuilder.Entity("StackUnderflow.Entities.ResponseVote", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Direction");
-
-                    b.Property<int>("ResponseId");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ResponseVotes");
                 });
 #pragma warning restore 612, 618
         }
