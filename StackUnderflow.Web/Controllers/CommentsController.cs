@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using StackUnderflow.Data;
+using StackUnderflow.Business;
 using StackUnderflow.Entities;
 
 namespace StackUnderflow.Web.Controllers
@@ -14,86 +10,47 @@ namespace StackUnderflow.Web.Controllers
     [ApiController]
     public class CommentsController : ControllerBase
     {
-        private readonly StackUnderflowDbContext _context;
+        private readonly CommentService _cs;
 
-        public CommentsController(StackUnderflowDbContext context)
+        public CommentsController(CommentService cs)
         {
-            _context = context;
+            _cs = cs;
         }
 
         // GET: api/Comments
         [HttpGet]
         public IEnumerable<Comment> GetComments()
         {
-            return _context.Comments;
+            return _cs.GetAllComments();
         }
 
         // GET: api/Comments/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetComment([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            return Ok(_cs.FindCommentById(id));
+        }
 
-            var comment = await _context.Comments.FindAsync(id);
-
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(comment);
+        // GET: api/Comments/5
+        [HttpGet("{responseId}")]
+        public async Task<IActionResult> GetCommentByResponseId([FromRoute] int responseId)
+        {
+            return Ok(_cs.GetCommentsByResponse(responseId));
         }
 
         // PUT: api/Comments/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutComment([FromRoute] int id, [FromBody] Comment comment)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != comment.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(comment).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            _cs.EditComment(comment);
             return NoContent();
         }
 
         // POST: api/Comments
         [HttpPost]
-        public async Task<IActionResult> PostComment([FromBody] Comment comment)
+        public async Task<IActionResult> PostComment([FromRoute] int responseId, [FromBody] string text, string username)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Comments.Add(comment);
-            await _context.SaveChangesAsync();
-
+            Comment comment = _cs.AddComment(responseId, text, username);
             return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
         }
 
@@ -101,26 +58,8 @@ namespace StackUnderflow.Web.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComment([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var comment = await _context.Comments.FindAsync(id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
-            _context.Comments.Remove(comment);
-            await _context.SaveChangesAsync();
-
-            return Ok(comment);
-        }
-
-        private bool CommentExists(int id)
-        {
-            return _context.Comments.Any(e => e.Id == id);
+            _cs.DeleteComment(_cs.FindCommentById(id));
+            return Ok();
         }
     }
 }
