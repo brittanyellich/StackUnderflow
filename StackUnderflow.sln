@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackUnderflow.Entities", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackUnderflow.Business", "source\StackUnderflow.Business\StackUnderflow.Business.csproj", "{ED02F40E-9070-460C-9F6A-BF056D911083}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackUnderflow.Web", "source\StackUnderflow.Web\StackUnderflow.Web.csproj", "{818CEBE1-3D11-465F-BA72-0D6AFA86D8AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackUnderflow.Web", "StackUnderflow.Web\StackUnderflow.Web.csproj", "{ECE4596A-B000-46B1-A2C1-D4E483B434D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{ED02F40E-9070-460C-9F6A-BF056D911083}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED02F40E-9070-460C-9F6A-BF056D911083}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED02F40E-9070-460C-9F6A-BF056D911083}.Release|Any CPU.Build.0 = Release|Any CPU
-		{818CEBE1-3D11-465F-BA72-0D6AFA86D8AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{818CEBE1-3D11-465F-BA72-0D6AFA86D8AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{818CEBE1-3D11-465F-BA72-0D6AFA86D8AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{818CEBE1-3D11-465F-BA72-0D6AFA86D8AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECE4596A-B000-46B1-A2C1-D4E483B434D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECE4596A-B000-46B1-A2C1-D4E483B434D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECE4596A-B000-46B1-A2C1-D4E483B434D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECE4596A-B000-46B1-A2C1-D4E483B434D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
