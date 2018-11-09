@@ -14,5 +14,6 @@ namespace StackUnderflow.Entities
         public bool IsSolution { get; set; }
         public int Votes { get; set; }
         public bool Inappropriate { get; set; }
+        public bool MarkAsDeleted { get; set; }
     }
 }
