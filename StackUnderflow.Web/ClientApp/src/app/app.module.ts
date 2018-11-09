@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { ResponsesComponent } from './responses/responses.component';
 import { CommentsComponent } from './comments/comments.component';
+import {QuestionService} from "../providers/question-service/question.service";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,9 @@ import { CommentsComponent } from './comments/comments.component';
 
     ])
   ],
-  providers: [],
+  providers: [
+    QuestionService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

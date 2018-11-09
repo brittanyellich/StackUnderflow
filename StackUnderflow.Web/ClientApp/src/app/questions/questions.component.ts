@@ -1,6 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {QuestionService} from "../../providers/question-service/question.service";
 
 @Component({
   selector: 'app-questions',
@@ -8,12 +8,10 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./questions.component.css']
 })
 export class QuestionsComponent implements OnInit {
+  public questions: question[];
 
-  public questions: Question[];
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private modalService: NgbModal) {
-    http.get<Question[]>(baseUrl + 'api/Questions').subscribe(result => {
-      this.questions = result;
-    }, error => console.error(error));
+  constructor(public questionSvc: QuestionService, private modalService: NgbModal) {
+    this.questions = this.questionSvc.getQuestions();
   }
 
   ngOnInit() {
@@ -23,14 +21,8 @@ export class QuestionsComponent implements OnInit {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       console.log('nice')
     }, (reason) => {
+      console.error('more modals more problems')
     });
   }
+}
 
-}
-interface Question {
-  text: string;
-  askedBy: string;
-  askedAt: DateTimeFormat;
-  responseSolutionId: number;
-  votes: number;
-}
