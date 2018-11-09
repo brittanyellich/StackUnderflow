@@ -28,6 +28,7 @@ namespace StackUnderflow.Business
                 Inappropriate = false
             };
             _context.Questions.Add(questionToAdd);
+            _context.SaveChanges();
             return questionToAdd;
         }
 
@@ -46,6 +47,7 @@ namespace StackUnderflow.Business
         {
             //If we get to it, make it so only the author can edit
             _context.Questions.Update(question);
+            _context.SaveChanges();
         }
 
         public void DeleteQuestion(Question question)
@@ -55,22 +57,32 @@ namespace StackUnderflow.Business
 
         public void UpvoteQuestion(Question question, string userId)
         {
-            //handle that user hasn't already upvoted/downvoted the question
             Question upvotedQuestion = FindQuestionById(question.Id);
+            if (UserHasVoted(upvotedQuestion, userId))
+            {
+                return;
+            }
+            
             QuestionVote newVote = new QuestionVote
             {
                 QuestionId = question.Id,
                 UserId = userId,
                 Direction = true
             };
+            
             upvotedQuestion.Votes++;
             EditQuestion(upvotedQuestion);
+            
+            
         }
 
         public void DownvoteQuestion(Question question, string userId)
         {
-            //handle that user hasn't already upvoted/downvoted the question
             Question downvotedQuestion = FindQuestionById(question.Id);
+            if (UserHasVoted(downvotedQuestion, userId))
+            {
+                return;
+            }
             QuestionVote newVote = new QuestionVote
             {
                 QuestionId = question.Id,
@@ -83,6 +95,10 @@ namespace StackUnderflow.Business
 
         //Mark question inappropriate (Stretch goal)
         //Search questions (stretch goal)
-
+        private bool UserHasVoted(Question currentQuestion, string userId)
+        {
+            return _context.QuestionVotes.Any(x => x.UserId == userId && x.QuestionId == currentQuestion.Id);
+        }
     }
+
 }
