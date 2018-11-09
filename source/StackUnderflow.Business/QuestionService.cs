@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Internal;
 using StackUnderflow.Data;
 using StackUnderflow.Entities;
 
@@ -9,10 +10,12 @@ namespace StackUnderflow.Business
     public class QuestionService
     {
         private readonly StackUnderflowDbContext _context;
+        private readonly UserHelper _userHelper;
 
-        public QuestionService(StackUnderflowDbContext context)
+        public QuestionService(StackUnderflowDbContext context, UserHelper userHelper)
         {
             _context = context;
+            _userHelper = userHelper;
         }
 
         public Question AddQuestion(string text, Topic topic, string userName)
@@ -28,6 +31,7 @@ namespace StackUnderflow.Business
                 Inappropriate = false
             };
             _context.Questions.Add(questionToAdd);
+            _context.SaveChanges();
             return questionToAdd;
         }
 
@@ -38,14 +42,17 @@ namespace StackUnderflow.Business
 
         public List<Question> GetAllQuestions()
         {
-            //Order by votes, don't pull inappropriate
-            return _context.Questions.ToList();
+            var questions = _context.Questions.Where(x => !x.Inappropriate);
+            return questions.OrderBy(x => x.Votes).ToList();
         }
 
-        public void EditQuestion(Question question)
+        public void EditQuestion(Question question, string userId)
         {
-            //If we get to it, make it so only the author can edit
+            if (question.AskedBy != userId) return;
+            
             _context.Questions.Update(question);
+            _context.SaveChanges();
+
         }
 
         public void DeleteQuestion(Question question)
@@ -55,22 +62,32 @@ namespace StackUnderflow.Business
 
         public void UpvoteQuestion(Question question, string userId)
         {
-            //handle that user hasn't already upvoted/downvoted the question
             Question upvotedQuestion = FindQuestionById(question.Id);
+            if (_userHelper.UserHasVotedQuestion(upvotedQuestion, userId))
+            {
+                return;
+            }
+            
             QuestionVote newVote = new QuestionVote
             {
                 QuestionId = question.Id,
                 UserId = userId,
                 Direction = true
             };
+            
             upvotedQuestion.Votes++;
-            EditQuestion(upvotedQuestion);
+            EditQuestion(upvotedQuestion, userId);
+            
+            
         }
 
         public void DownvoteQuestion(Question question, string userId)
         {
-            //handle that user hasn't already upvoted/downvoted the question
             Question downvotedQuestion = FindQuestionById(question.Id);
+            if (_userHelper.UserHasVotedQuestion(downvotedQuestion, userId))
+            {
+                return;
+            }
             QuestionVote newVote = new QuestionVote
             {
                 QuestionId = question.Id,
@@ -78,11 +95,10 @@ namespace StackUnderflow.Business
                 Direction = false
             };
             downvotedQuestion.Votes--;
-            EditQuestion(downvotedQuestion);
+            EditQuestion(downvotedQuestion, userId);
         }
-
         //Mark question inappropriate (Stretch goal)
         //Search questions (stretch goal)
-
     }
+
 }
