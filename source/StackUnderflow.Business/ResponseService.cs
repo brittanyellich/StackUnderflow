@@ -10,7 +10,7 @@ using StackUnderflow.Entities;
 
 namespace StackUnderflow.Business
 {
-    class ResponseService
+    public class ResponseService
     {
         private readonly StackUnderflowDbContext _context;
 
