@@ -25,7 +25,7 @@ namespace StackUnderflow.Business
                 ResponseSolutionId = 0,
                 Votes = 1,
                 Topic = topic,
-                IsActive = true
+                Inappropriate = false
             };
             _context.Questions.Add(questionToAdd);
             return questionToAdd;
@@ -38,11 +38,13 @@ namespace StackUnderflow.Business
 
         public List<Question> GetAllQuestions()
         {
+            //Order by votes, don't pull inappropriate
             return _context.Questions.ToList();
         }
 
         public void EditQuestion(Question question)
         {
+            //If we get to it, make it so only the author can edit
             _context.Questions.Update(question);
         }
 
@@ -53,6 +55,7 @@ namespace StackUnderflow.Business
 
         public void UpvoteQuestion(Question question, string userId)
         {
+            //handle that user hasn't already upvoted/downvoted the question
             Question upvotedQuestion = FindQuestionById(question.Id);
             QuestionVote newVote = new QuestionVote
             {
@@ -66,6 +69,7 @@ namespace StackUnderflow.Business
 
         public void DownvoteQuestion(Question question, string userId)
         {
+            //handle that user hasn't already upvoted/downvoted the question
             Question downvotedQuestion = FindQuestionById(question.Id);
             QuestionVote newVote = new QuestionVote
             {
@@ -76,6 +80,9 @@ namespace StackUnderflow.Business
             downvotedQuestion.Votes--;
             EditQuestion(downvotedQuestion);
         }
+
+        //Mark question inappropriate (Stretch goal)
+        //Search questions (stretch goal)
 
     }
 }

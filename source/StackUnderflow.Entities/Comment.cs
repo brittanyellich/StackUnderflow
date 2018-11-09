@@ -14,6 +14,6 @@ namespace StackUnderflow.Entities
         public string CommentedBy { get; set; }
         public DateTimeOffset CommentedAt { get; set; }
         public int Votes { get; set; }
-        public bool IsActive { get; set; }
+        public bool Inappropriate { get; set; }
     }
 }

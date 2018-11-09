@@ -4,15 +4,25 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using StackUnderflow.Data;
 using StackUnderflow.Web.Models;
 
 namespace StackUnderflow.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+
+        private readonly StackUnderflowDbContext _context;
+
+        public HomeController(StackUnderflowDbContext context)
         {
-            return View();
+            _context = context;
+        }
+        // GET: Questions
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Questions.ToListAsync());
         }
 
         public IActionResult About()

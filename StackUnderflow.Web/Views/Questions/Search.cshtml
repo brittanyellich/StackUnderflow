@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StackUnderflow.Entities.Question>
+﻿@model StackUnderflow.Entities.Question
 
 @{
     ViewData["Title"] = "Search";
@@ -31,13 +31,13 @@
                 @Html.DisplayNameFor(model => model.Topic)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsActive)
+                @Html.DisplayNameFor(model => model.Inappropriate)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@*@foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Text)
@@ -66,6 +66,6 @@
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+}*@
     </tbody>
 </table>

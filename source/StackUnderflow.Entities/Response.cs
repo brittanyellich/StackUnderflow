@@ -13,6 +13,6 @@ namespace StackUnderflow.Entities
         public DateTimeOffset RespondedAt { get; set; }
         public bool IsSolution { get; set; }
         public int Votes { get; set; }
-        public bool IsActive { get; set; }
+        public bool Inappropriate { get; set; }
     }
 }

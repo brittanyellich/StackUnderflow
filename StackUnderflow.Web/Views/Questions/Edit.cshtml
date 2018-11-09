@@ -46,7 +46,7 @@
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                        <input asp-for="Inappropriate" /> @Html.DisplayNameFor(model => model.Inappropriate)
                     </label>
                 </div>
             </div>
@@ -58,7 +58,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Home" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

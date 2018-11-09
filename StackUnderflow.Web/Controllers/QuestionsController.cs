@@ -12,17 +12,12 @@ namespace StackUnderflow.Web.Controllers
 {
     public class QuestionsController : Controller
     {
+        //change to use service instead of context
         private readonly StackUnderflowDbContext _context;
 
         public QuestionsController(StackUnderflowDbContext context)
         {
             _context = context;
-        }
-
-        // GET: Questions
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Questions.ToListAsync());
         }
 
         // GET: Questions/Details/5
@@ -78,7 +73,7 @@ namespace StackUnderflow.Web.Controllers
             {
                 _context.Add(question);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(question);
         }
@@ -129,7 +124,7 @@ namespace StackUnderflow.Web.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(question);
         }
@@ -160,7 +155,7 @@ namespace StackUnderflow.Web.Controllers
             var question = await _context.Questions.FindAsync(id);
             _context.Questions.Remove(question);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private bool QuestionExists(int id)

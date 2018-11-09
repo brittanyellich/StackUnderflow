@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace StackUnderflow.Entities
 {
-    public class Question
+    public class Question : IEnumerable
     {
         public int Id { get; set; }
         public string Text { get; set; }
@@ -13,7 +14,11 @@ namespace StackUnderflow.Entities
         public int ResponseSolutionId { get; set; }
         public int Votes { get; set; }
         public Topic Topic { get; set; }
-        public bool IsActive { get; set; }
+        public bool Inappropriate { get; set; }
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public enum Topic
@@ -21,6 +26,14 @@ namespace StackUnderflow.Entities
         Programming,
         Animals,
         Cars,
-        Computers
+        Computers, 
+        Sweaters,
+        Fashion,
+        Sneakers,
+        Music,
+        VideoGames,
+        Pizza,
+        Beer,
+        OtherAlcoholicBeverages
     }
 }

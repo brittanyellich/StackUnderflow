@@ -32,12 +32,12 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Questions" asp-action="Create">Ask a Question</a></li>
-                    @using (Html.BeginForm("Search", "Questions", FormMethod.Get))
-                    {
-                        <li>@Html.TextBox("id", ViewBag.CurrentFilter as string)</li>
-                        <li><input type="submit" value="Search" /></li>
-                    }
                 </ul>
+                @using (Html.BeginForm("Search", "Questions", FormMethod.Get))
+                {
+                    @Html.TextBox("id", ViewBag.CurrentFilter as string)
+                    <input type="submit" value="Search" />
+                }
                 <partial name="_LoginPartial" />
             </div>
         </div>
