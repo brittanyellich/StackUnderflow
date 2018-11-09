@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Internal;
 using StackUnderflow.Data;
 using StackUnderflow.Entities;
 
@@ -9,10 +10,12 @@ namespace StackUnderflow.Business
     public class QuestionService
     {
         private readonly StackUnderflowDbContext _context;
+        private readonly UserHelper _userHelper;
 
-        public QuestionService(StackUnderflowDbContext context)
+        public QuestionService(StackUnderflowDbContext context, UserHelper userHelper)
         {
             _context = context;
+            _userHelper = userHelper;
         }
 
         public Question AddQuestion(string text, Topic topic, string userName)
@@ -39,8 +42,8 @@ namespace StackUnderflow.Business
 
         public List<Question> GetAllQuestions()
         {
-            //Order by votes, don't pull inappropriate
-            return _context.Questions.ToList();
+            var questions = _context.Questions.Where(x => !x.Inappropriate);
+            return questions.OrderBy(x => x.Votes).ToList();
         }
 
         public void EditQuestion(Question question)
@@ -58,7 +61,7 @@ namespace StackUnderflow.Business
         public void UpvoteQuestion(Question question, string userId)
         {
             Question upvotedQuestion = FindQuestionById(question.Id);
-            if (UserHasVoted(upvotedQuestion, userId))
+            if (_userHelper.UserHasVotedQuestion(upvotedQuestion, userId))
             {
                 return;
             }
@@ -79,7 +82,7 @@ namespace StackUnderflow.Business
         public void DownvoteQuestion(Question question, string userId)
         {
             Question downvotedQuestion = FindQuestionById(question.Id);
-            if (UserHasVoted(downvotedQuestion, userId))
+            if (_userHelper.UserHasVotedQuestion(downvotedQuestion, userId))
             {
                 return;
             }
@@ -92,13 +95,8 @@ namespace StackUnderflow.Business
             downvotedQuestion.Votes--;
             EditQuestion(downvotedQuestion);
         }
-
         //Mark question inappropriate (Stretch goal)
         //Search questions (stretch goal)
-        private bool UserHasVoted(Question currentQuestion, string userId)
-        {
-            return _context.QuestionVotes.Any(x => x.UserId == userId && x.QuestionId == currentQuestion.Id);
-        }
     }
 
 }
