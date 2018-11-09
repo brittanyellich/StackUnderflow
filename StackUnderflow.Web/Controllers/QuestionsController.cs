@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StackUnderflow.Business;
 using StackUnderflow.Data;
 using StackUnderflow.Entities;
 
@@ -14,71 +15,32 @@ namespace StackUnderflow.Web.Controllers
     [ApiController]
     public class QuestionsController : ControllerBase
     {
-        private readonly StackUnderflowDbContext _context;
+        private readonly QuestionService _svc;
 
-        public QuestionsController(StackUnderflowDbContext context)
+        public QuestionsController(QuestionService svc)
         {
-            _context = context;
+            _svc = svc;
         }
 
         // GET: api/Questions
         [HttpGet]
         public IEnumerable<Question> GetQuestions()
         {
-            return _context.Questions;
+            return _svc.GetAllQuestions();
         }
 
         // GET: api/Questions/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetQuestion([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var question = await _context.Questions.FindAsync(id);
-
-            if (question == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(question);
+            return Ok(_svc.FindQuestionById(id));
         }
 
         // PUT: api/Questions/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuestion([FromRoute] int id, [FromBody] Question question)
+        public async Task<IActionResult> PutQuestion([FromRoute] string id, [FromBody] Question question)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != question.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(question).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!QuestionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            _svc.EditQuestion(question, id);
             return NoContent();
         }
 
@@ -86,41 +48,17 @@ namespace StackUnderflow.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> PostQuestion([FromBody] Question question)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Questions.Add(question);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetQuestion", new { id = question.Id }, question);
+            _svc.AddQuestion(question.Text, question.Topic, question.AskedBy);
+            return NoContent();
         }
 
         // DELETE: api/Questions/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteQuestion([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var question = await _context.Questions.FindAsync(id);
-            if (question == null)
-            {
-                return NotFound();
-            }
-
-            _context.Questions.Remove(question);
-            await _context.SaveChangesAsync();
-
+            var question = _svc.FindQuestionById(id);
+            _svc.DeleteQuestion(question);
             return Ok(question);
-        }
-
-        private bool QuestionExists(int id)
-        {
-            return _context.Questions.Any(e => e.Id == id);
         }
     }
 }
