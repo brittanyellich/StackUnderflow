@@ -12,7 +12,10 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { ResponsesComponent } from './responses/responses.component';
 import { CommentsComponent } from './comments/comments.component';
-import {QuestionService} from "../providers/question-service/question.service";
+
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModalStack} from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
+import { QuestionService } from '../providers/question-service/question.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import {QuestionService} from "../providers/question-service/question.service";
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    NgbModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
@@ -39,6 +43,7 @@ import {QuestionService} from "../providers/question-service/question.service";
   ],
   providers: [
     QuestionService,
+    NgbModalStack,
   ],
   bootstrap: [AppComponent]
 })

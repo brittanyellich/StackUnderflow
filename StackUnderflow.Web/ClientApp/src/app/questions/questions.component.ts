@@ -8,7 +8,7 @@ import {QuestionService} from "../../providers/question-service/question.service
   styleUrls: ['./questions.component.css']
 })
 export class QuestionsComponent implements OnInit {
-  public questions: question[];
+  public questions;
 
   constructor(public questionSvc: QuestionService, private modalService: NgbModal) {
     this.questions = this.questionSvc.getQuestions();
@@ -18,7 +18,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   addQuestion(content){
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, null).result.then((result) => {
       console.log('nice')
     }, (reason) => {
       console.error('more modals more problems')
