@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using StackUnderflow.Data;
 using StackUnderflow.Entities;
@@ -53,6 +54,12 @@ namespace StackUnderflow.Business
             _context.Questions.Update(question);
             _context.SaveChanges();
 
+        }
+
+        public void MarkAsInappropriate(int id)
+        {
+            FindQuestionById(id).Inappropriate = true;
+            _context.SaveChanges();
         }
 
         public void DeleteQuestion(Question question)
