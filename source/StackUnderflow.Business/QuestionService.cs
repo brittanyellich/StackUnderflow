@@ -46,11 +46,13 @@ namespace StackUnderflow.Business
             return questions.OrderBy(x => x.Votes).ToList();
         }
 
-        public void EditQuestion(Question question)
+        public void EditQuestion(Question question, string userId)
         {
-            //If we get to it, make it so only the author can edit
+            if (question.AskedBy != userId) return;
+            
             _context.Questions.Update(question);
             _context.SaveChanges();
+
         }
 
         public void DeleteQuestion(Question question)
@@ -74,7 +76,7 @@ namespace StackUnderflow.Business
             };
             
             upvotedQuestion.Votes++;
-            EditQuestion(upvotedQuestion);
+            EditQuestion(upvotedQuestion, userId);
             
             
         }
@@ -93,7 +95,7 @@ namespace StackUnderflow.Business
                 Direction = false
             };
             downvotedQuestion.Votes--;
-            EditQuestion(downvotedQuestion);
+            EditQuestion(downvotedQuestion, userId);
         }
         //Mark question inappropriate (Stretch goal)
         //Search questions (stretch goal)
