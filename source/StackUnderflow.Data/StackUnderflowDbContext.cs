@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using StackUnderflow.Entities;
 
 namespace StackUnderflow.Data
@@ -16,11 +17,11 @@ namespace StackUnderflow.Data
         public DbSet<CommentVote> CommentVotes { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //At some point you'll switch this out for an actual database
-            optionsBuilder.UseSqlServer(@"
-                Data Source=(localdb)\mssqllocaldb; 
-                Initial Catalog=StackUnderflow;
-                Integrated Security=True");
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json")
+                .Build();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         }
     }
 }
