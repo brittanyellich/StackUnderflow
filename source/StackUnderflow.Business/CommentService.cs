@@ -9,9 +9,11 @@ namespace StackUnderflow.Business
     public class CommentService
     {
         private readonly StackUnderflowDbContext _context;
-        public CommentService(StackUnderflowDbContext context)
+        private readonly UserHelper _userHelper;
+        public CommentService(StackUnderflowDbContext context, UserHelper userHelper)
         {
             _context = context;
+            _userHelper = userHelper;
         }
 
 
@@ -67,7 +69,10 @@ namespace StackUnderflow.Business
         //Upvote a comment -- Do some user stuff here too
         public void UpvoteComment(Comment comment, string userId)
         {
-            //handle that user hasn't already upvoted/downvoted the comment
+            if(_userHelper.UserHasVotedComment(comment, userId))
+            {
+                return;
+            }
             Comment upvotedComment = FindCommentById(comment.Id);
             CommentVote newVote = new CommentVote
             {
@@ -75,6 +80,7 @@ namespace StackUnderflow.Business
                 UserId = userId,
                 Direction = true
             };
+            _context.CommentVotes.Add(newVote);
             upvotedComment.Votes++;
             EditComment(upvotedComment);
         }
@@ -82,7 +88,10 @@ namespace StackUnderflow.Business
         //Downvote a comment
         public void DownvoteComment(Comment comment, string userId)
         {
-            //handle that user hasn't already upvoted/downvoted the comment
+            if (_userHelper.UserHasVotedComment(comment, userId))
+            {
+                return;
+            }
             Comment downvoteComment = FindCommentById(comment.Id);
             CommentVote newVote = new CommentVote
             {
@@ -91,6 +100,7 @@ namespace StackUnderflow.Business
                 Direction = false
             };
             downvoteComment.Votes++;
+            _context.CommentVotes.Add(newVote);
             EditComment(downvoteComment);
         }
 

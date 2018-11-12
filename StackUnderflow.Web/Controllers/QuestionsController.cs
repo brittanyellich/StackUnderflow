@@ -26,6 +26,8 @@ namespace StackUnderflow.Web.Controllers
         [HttpGet]
         public IEnumerable<Question> GetQuestions()
         {
+
+            Console.WriteLine("Got into the controller!");
             return _svc.GetAllQuestions();
         }
 

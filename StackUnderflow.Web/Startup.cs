@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackUnderflow.Business;
+using StackUnderflow.Data;
 
 namespace StackUnderflow.Web
 {
@@ -22,6 +23,7 @@ namespace StackUnderflow.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<StackUnderflowDbContext>();
             services.AddTransient<CommentService>();
             services.AddTransient<QuestionService>();
             services.AddTransient<ResponseService>();

@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace StackUnderflow.Entities
 {
-    public class Question : IEnumerable
+    public class Question
     {
         public int Id { get; set; }
         public string Text { get; set; }
@@ -15,10 +15,6 @@ namespace StackUnderflow.Entities
         public int Votes { get; set; }
         public Topic Topic { get; set; }
         public bool Inappropriate { get; set; }
-        public IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public enum Topic

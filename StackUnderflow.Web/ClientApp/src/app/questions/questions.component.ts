@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {QuestionService} from "../../providers/question-service/question.service";
 
 @Component({
@@ -8,6 +8,8 @@ import {QuestionService} from "../../providers/question-service/question.service
   styleUrls: ['./questions.component.css']
 })
 export class QuestionsComponent implements OnInit {
+
+  closeResult: string;
   public questions;
 
   constructor(public questionSvc: QuestionService, private modalService: NgbModal) {
@@ -19,10 +21,22 @@ export class QuestionsComponent implements OnInit {
 
   addQuestion(content){
     this.modalService.open(content, {}).result.then((result) => {
-      console.log('nice')
+      console.log('nice');
+      this.closeResult = 'Closed with: ${result}';
     }, (reason) => {
       console.error('more modals more problems')
+      this.closeResult = 'Dismissed ${this.getDismissReason(reason)}';
     });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 }
 
