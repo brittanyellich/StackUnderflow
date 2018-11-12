@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StackUnderflow.Business;
 
 namespace StackUnderflow.Web
 {
@@ -21,9 +22,13 @@ namespace StackUnderflow.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddTransient<CommentService>();
+            services.AddTransient<QuestionService>();
+            services.AddTransient<ResponseService>();
+            services.AddTransient<UserHelper>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

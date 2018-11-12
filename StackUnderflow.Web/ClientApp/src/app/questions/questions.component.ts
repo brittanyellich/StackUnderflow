@@ -18,7 +18,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   addQuestion(content){
-    this.modalService.open(content, null).result.then((result) => {
+    this.modalService.open(content, {}).result.then((result) => {
       console.log('nice')
     }, (reason) => {
       console.error('more modals more problems')

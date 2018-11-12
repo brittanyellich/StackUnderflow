@@ -8,7 +8,7 @@ export class QuestionService {
   constructor(public http: HttpClient) { }
 
   getQuestions() {
-    this.http.get<question[]>(`${environment.apiUrl}api/Questions`).subscribe(result => {
+    this.http.get<question[]>(`${environment.apiUrl}Questions`).subscribe(result => {
       return result;
     }, error => console.error(error));
   }

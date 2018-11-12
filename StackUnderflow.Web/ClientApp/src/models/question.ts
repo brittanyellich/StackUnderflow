@@ -1,7 +1,7 @@
 interface question {
   text: string;
   askedBy: string;
-  askedAt: DateTimeFormat;
+  askedAt: any;
   responseSolutionId: number;
   votes: number;
 }
