@@ -1,8 +1,8 @@
-export interface response {
+export interface comment {
   id: number;
   text: string;
-  respondedBy: string;
-  respondedAt: any;
+  commentedBy: string;
+  commentedAt: any;
   isSolution: boolean;
   votes: number;
   questionId: number;
