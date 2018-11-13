@@ -5,8 +5,8 @@
 </div>
 <div>
   <ul>
-    <li *ngFor="let question of this.questions">
-      <a href="/questions/{{question.id}}">{{ question.text }}</a>
+    <li *ngFor="let question of this.questions; let i = index">
+      <a [routerLink]='["/questions", i + 1]'>{{ question.text }}</a>
     </li>
   </ul>
 </div>

@@ -38,9 +38,14 @@ import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'questions', component: QuestionsComponent },
-      { path: 'questions/:id', component: QuestionComponent },
-
+      {
+        path: 'questions',
+        component: QuestionsComponent,
+      },
+      {
+        path: 'questions/:id',
+        component: QuestionComponent
+      }
     ])
   ],
   providers: [
