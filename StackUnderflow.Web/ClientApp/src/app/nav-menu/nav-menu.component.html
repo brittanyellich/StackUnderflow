@@ -22,7 +22,13 @@
                         <span class='glyphicon glyphicon-education'></span> Questions
                     </a>
                 </li>
+              <li [routerLinkActive]='["link-active"]'>
+                <a [routerLink]='["/login"]' (click)='collapse()'>
+                  <span class='glyphicon glyphicon glyphicon-eye-open'></span> Login
+                </a>
+              </li>
             </ul>
         </div>
+        <p class="logged-in" [hidden]="loggedIn">You are not logged in.</p>
     </div>
 </div>

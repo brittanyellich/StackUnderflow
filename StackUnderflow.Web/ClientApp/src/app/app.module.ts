@@ -1,3 +1,4 @@
+import { AuthService } from './../providers/auth-service/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +17,7 @@ import { CommentsComponent } from './comments/comments.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
 import { QuestionService } from '../providers/question-service/question.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { QuestionService } from '../providers/question-service/question.service'
     QuestionsComponent,
     ResponsesComponent,
     CommentsComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -38,12 +41,14 @@ import { QuestionService } from '../providers/question-service/question.service'
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'questions', component: QuestionsComponent },
+      { path: 'login', component: LoginComponent}
 
     ])
   ],
   providers: [
     QuestionService,
     NgbModalStack,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

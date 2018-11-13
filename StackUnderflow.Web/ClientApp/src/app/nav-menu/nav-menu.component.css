@@ -56,4 +56,9 @@ li.link-active a:focus {
         overflow: hidden;
         text-overflow: ellipsis;
     }
+    .logged-in {
+      position: absolute;
+      bottom: 10px;
+      color: white;
+    }
 }
