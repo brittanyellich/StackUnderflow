@@ -1,0 +1,7 @@
+<p>{{question.text}}</p>
+<div class="responseInput">
+  <label for="responseInput"></label>
+  <input [(ngModel)]="content" type="text" for="responseInput">
+  <div class="btn btn-primary" (click)="respondToQuestion(question)">Respond</div>
+</div>
+
