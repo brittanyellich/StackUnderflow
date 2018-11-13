@@ -15,7 +15,6 @@ import { CommentsComponent } from './comments/comments.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
-import { QuestionService } from '../providers/question-service/question.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +41,6 @@ import { QuestionService } from '../providers/question-service/question.service'
     ])
   ],
   providers: [
-    QuestionService,
     NgbModalStack,
   ],
   bootstrap: [AppComponent]
