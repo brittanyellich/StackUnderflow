@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +20,16 @@ namespace StackUnderflow.Web.Controllers
     public class QuestionsController : ControllerBase
     {
         private readonly QuestionService _svc;
+        private readonly ResponseService _ressvc;
 
-        public QuestionsController(QuestionService svc)
+        public QuestionsController(QuestionService svc, ResponseService ressvc)
         {
             _svc = svc;
+            _ressvc = ressvc;
         }
 
         // GET: api/Questions
+        [Authorize]
         [HttpGet]
         public IEnumerable<Question> GetQuestions()
         {
@@ -77,6 +82,13 @@ namespace StackUnderflow.Web.Controllers
             var question = _svc.FindQuestionById(id);
             _svc.DeleteQuestion(question);
             return Ok(question);
+        }
+
+        // GET: api/Questions/5/Responses
+        [HttpGet("{id}/Responses")]
+        public IEnumerable<Response> GetQuestionResponses([FromRoute] int id)
+        {
+            return _ressvc.GetResponsesByQuestionId(id);
         }
     }
 }

@@ -1,3 +1,4 @@
+import { AuthService } from './../providers/auth-service/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +17,7 @@ import { QuestionComponent } from './question/question.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
     QuestionsComponent,
     ResponsesComponent,
     CommentsComponent,
+    LoginComponent,
     QuestionComponent,
   ],
   imports: [
@@ -45,11 +48,13 @@ import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
       {
         path: 'questions/:id',
         component: QuestionComponent
-      }
+      },
+      { path: 'login', component: LoginComponent}
     ])
   ],
   providers: [
     NgbModalStack,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

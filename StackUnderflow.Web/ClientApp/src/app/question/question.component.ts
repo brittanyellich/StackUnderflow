@@ -34,8 +34,13 @@ export class QuestionComponent implements OnInit {
     const payloadResponse = {
       text: content,
       askedBy: 'Rob',
-      topic: 1
+      questionId: this.id
     };
+
+    this.http.post<question>(`${environment.apiUrl}Responses`, payloadResponse).subscribe(result => {
+      console.log('we did it');
+    }, err => console.error(err));
+    console.log(content);
   }
 
 

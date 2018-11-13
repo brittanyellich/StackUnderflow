@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { question } from '../../models/question';
 @Component({
   selector: 'app-questions',
@@ -13,7 +13,11 @@ export class QuestionsComponent implements OnInit {
   public questions;
 
   constructor(public http: HttpClient) {
-    this.http.get<question[]>(`${environment.apiUrl}questions`).subscribe(result => {
+    const token = localStorage.getItem('jwt');
+    this.http.get<question[]>(`${environment.apiUrl}questions`, {headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+    })}).subscribe(result => {
       console.log(result);
       this.questions = result;
     }, error => console.error(error));
