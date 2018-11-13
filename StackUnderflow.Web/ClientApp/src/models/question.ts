@@ -1,5 +1,5 @@
 // tslint:disable-next-line:class-name
-interface question {
+export interface question {
   text: string;
   askedBy: string;
   askedAt: any;
