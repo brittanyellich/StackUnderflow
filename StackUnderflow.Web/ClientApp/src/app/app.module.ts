@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { ResponsesComponent } from './responses/responses.component';
 import { CommentsComponent } from './comments/comments.component';
+import { QuestionComponent } from './question/question.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
@@ -26,6 +27,7 @@ import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
     QuestionsComponent,
     ResponsesComponent,
     CommentsComponent,
+    QuestionComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,6 +39,7 @@ import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'questions', component: QuestionsComponent },
+      { path: 'questions/:id', component: QuestionComponent },
 
     ])
   ],
