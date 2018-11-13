@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {environment} from "../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import {environment} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-questions',
@@ -23,14 +23,17 @@ export class QuestionsComponent implements OnInit {
   ngOnInit() {
   }
 
-  addQuestion(content){
-    this.modalService.open(content, {}).result.then((result) => {
-      console.log('nice');
-      this.closeResult = 'Closed with: ${result}';
-    }, (reason) => {
-      console.error('more modals more problems');
-      this.closeResult = 'Dismissed ${this.getDismissReason(reason)}';
-    });
+  addQuestion(content) {
+    const payload = {
+      text: content,
+      askedBy: 'Rob',
+      topic: 1
+    };
+
+    this.http.post<question>(`${environment.apiUrl}questions`, payload).subscribe(result => {
+      console.log('we did it');
+    }, err => console.error(err));
+    console.log(content);
   }
 
   private getDismissReason(reason: any): string {
