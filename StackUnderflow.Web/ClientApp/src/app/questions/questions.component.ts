@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import { question } from '../../models/question';
