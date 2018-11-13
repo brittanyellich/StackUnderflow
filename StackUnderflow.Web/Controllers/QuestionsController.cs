@@ -47,6 +47,19 @@ namespace StackUnderflow.Web.Controllers
             _svc.EditQuestion(question, id);
             return NoContent();
         }
+        // PUT: api/Questions/5
+        [HttpPut("{id}/up")]
+        public async Task<IActionResult> UpvoteQuestion([FromRoute] string id, [FromBody] Question question)
+        {
+            _svc.UpvoteQuestion(question, id);
+            return NoContent();
+        }
+        [HttpPut("{id}/up")]
+        public async Task<IActionResult> DownvoteQuestion([FromRoute] string id, [FromBody] Question question)
+        {
+            _svc.DownvoteQuestion(question, id);
+            return NoContent();
+        }
 
         // POST: api/Questions
         [HttpPost]
@@ -55,6 +68,7 @@ namespace StackUnderflow.Web.Controllers
             _svc.AddQuestion(question.Text, question.Topic, question.AskedBy);
             return NoContent();
         }
+        
 
         // DELETE: api/Questions/5
         [HttpDelete("{id}")]
