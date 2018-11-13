@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {QuestionService} from "../../providers/question-service/question.service";
-
+import {environment} from '../../environments/environment';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { question } from '../../models/question';
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
@@ -12,31 +12,31 @@ export class QuestionsComponent implements OnInit {
   closeResult: string;
   public questions;
 
-  constructor(public questionSvc: QuestionService, private modalService: NgbModal) {
-    this.questions = this.questionSvc.getQuestions();
+  constructor(public http: HttpClient) {
+    const token = localStorage.getItem('jwt');
+    this.http.get<question[]>(`${environment.apiUrl}questions`, {headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+    })}).subscribe(result => {
+      console.log(result);
+      this.questions = result;
+    }, error => console.error(error));
   }
 
   ngOnInit() {
   }
 
-  addQuestion(content){
-    this.modalService.open(content, {}).result.then((result) => {
-      console.log('nice');
-      this.closeResult = 'Closed with: ${result}';
-    }, (reason) => {
-      console.error('more modals more problems')
-      this.closeResult = 'Dismissed ${this.getDismissReason(reason)}';
-    });
-  }
+  addQuestion(content) {
+    const payload = {
+      text: content,
+      askedBy: 'Rob',
+      topic: 1
+    };
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+    this.http.post<question>(`${environment.apiUrl}questions`, payload).subscribe(result => {
+      console.log('we did it');
+    }, err => console.error(err));
+    console.log(content);
   }
 }
 

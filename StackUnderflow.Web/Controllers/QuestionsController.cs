@@ -15,6 +15,7 @@ using StackUnderflow.Entities;
 namespace StackUnderflow.Web.Controllers
 {
     [Route("api/[controller]")]
+    [AllowAnonymous]
     [ApiController]
     public class QuestionsController : ControllerBase
     {

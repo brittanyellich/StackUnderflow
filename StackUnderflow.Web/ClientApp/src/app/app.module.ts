@@ -13,10 +13,10 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { ResponsesComponent } from './responses/responses.component';
 import { CommentsComponent } from './comments/comments.component';
+import { QuestionComponent } from './question/question.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
-import { QuestionService } from '../providers/question-service/question.service';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
@@ -30,6 +30,7 @@ import { LoginComponent } from './login/login.component';
     ResponsesComponent,
     CommentsComponent,
     LoginComponent,
+    QuestionComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -40,13 +41,18 @@ import { LoginComponent } from './login/login.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'questions', component: QuestionsComponent },
+      {
+        path: 'questions',
+        component: QuestionsComponent,
+      },
+      {
+        path: 'questions/:id',
+        component: QuestionComponent
+      },
       { path: 'login', component: LoginComponent}
-
     ])
   ],
   providers: [
-    QuestionService,
     NgbModalStack,
     AuthService
   ],

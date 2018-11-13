@@ -1,38 +1,16 @@
+<div class="questionInput">
+  <label for="questionInput"></label>
+  <input [(ngModel)]="content" type="text" for="questionInput">
+  <div class="btn btn-primary"(click)="addQuestion(content)">Ask a question</div>
+</div>
 <div>
   <ul>
-    <li *ngFor="let question of questions">
-      {{ question.text }}
+    <li *ngFor="let question of this.questions; let i = index">
+      <a [routerLink]='["/questions", i + 1]'>{{ question.text }}</a>
     </li>
   </ul>
 </div>
 
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="userQuestion">Ask a question!</label>
-        <div class="input-group">
-          <textarea id="userQuestion" class="form-control" ></textarea>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-  </div>
-</ng-template>
-
-
-
 <div>
-  <div class="btn btn-primary" (click)="addQuestion(question)">Ask a question</div>
 </div>
 
-<hr/>
-<pre>{{closeResult}}</pre>

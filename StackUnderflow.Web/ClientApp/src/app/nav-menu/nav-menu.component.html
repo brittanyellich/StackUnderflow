@@ -27,6 +27,11 @@
                   <span class='glyphicon glyphicon glyphicon-eye-open'></span> Login
                 </a>
               </li>
+              <li>
+                <a (click)="logout()" [routerLink]='["/login"]' (click)='collapse()'>
+                  <span class='glyphicon glyphicon glyphicon-remove-sign'></span> Logout
+                </a>
+              </li>
             </ul>
         </div>
         <p class="logged-in" [hidden]="loggedIn">You are not logged in.</p>

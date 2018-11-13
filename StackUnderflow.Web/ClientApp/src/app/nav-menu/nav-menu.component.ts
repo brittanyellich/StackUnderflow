@@ -21,6 +21,11 @@ export class NavMenuComponent {
       this.loggedIn = false;
     }
   }
+
+  logout() {
+    localStorage.removeItem('jwt');
+  }
+
   collapse() {
     this.isExpanded = false;
   }
