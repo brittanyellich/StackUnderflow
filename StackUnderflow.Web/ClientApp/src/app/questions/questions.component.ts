@@ -12,7 +12,7 @@ export class QuestionsComponent implements OnInit {
   closeResult: string;
   public questions;
 
-  constructor(public http: HttpClient, private modalService: NgbModal) {
+  constructor(public http: HttpClient) {
     this.http.get<question[]>(`${environment.apiUrl}questions`).subscribe(result => {
       console.log(result);
       this.questions = result;
