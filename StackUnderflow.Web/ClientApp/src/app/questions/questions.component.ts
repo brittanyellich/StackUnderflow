@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {environment} from "../../environments/environment";
-import {HttpClient} from "@angular/common/http";
-
+import {environment} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import { question } from '../../models/question';
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
@@ -23,24 +22,17 @@ export class QuestionsComponent implements OnInit {
   ngOnInit() {
   }
 
-  addQuestion(content){
-    this.modalService.open(content, {}).result.then((result) => {
-      console.log('nice');
-      this.closeResult = 'Closed with: ${result}';
-    }, (reason) => {
-      console.error('more modals more problems');
-      this.closeResult = 'Dismissed ${this.getDismissReason(reason)}';
-    });
-  }
+  addQuestion(content) {
+    const payload = {
+      text: content,
+      askedBy: 'Rob',
+      topic: 1
+    };
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+    this.http.post<question>(`${environment.apiUrl}questions`, payload).subscribe(result => {
+      console.log('we did it');
+    }, err => console.error(err));
+    console.log(content);
   }
 }
 
