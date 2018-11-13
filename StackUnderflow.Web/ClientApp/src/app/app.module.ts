@@ -49,7 +49,8 @@ import { LoginComponent } from './login/login.component';
         path: 'questions/:id',
         component: QuestionComponent
       },
-      { path: 'login', component: LoginComponent}
+      { path: 'login', component: LoginComponent},
+      { path: 'responses/:id', component: ResponsesComponent}
     ])
   ],
   providers: [

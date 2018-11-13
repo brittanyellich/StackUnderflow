@@ -72,7 +72,7 @@ namespace StackUnderflow.Web.Controllers
 
         // GET: api/Questions/5/Responses
         [HttpGet("{id}/Responses")]
-        public IEnumerable<Response> GetQuestionResponses([FromRoute] int id)
+        public List<Response> GetQuestionResponses([FromRoute] int id)
         {
             return _ressvc.GetResponsesByQuestionId(id);
         }
