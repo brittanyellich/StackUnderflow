@@ -31,9 +31,9 @@ namespace StackUnderflow.Web.Controllers
 
         // POST: api/Responses
         [HttpPost]
-        public async Task<IActionResult> PostResponse([FromBody] Response response)
+        public async Task<IActionResult> PostResponse([FromBody] string text, string userId, int questionId)
         {
-            return Ok(_responseService.AddResponse(response));
+            return Ok(_responseService.AddResponse(text, userId, questionId));
         }
         
         // Mark as inappropriate

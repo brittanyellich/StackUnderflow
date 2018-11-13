@@ -20,10 +20,12 @@ namespace StackUnderflow.Web.Controllers
     public class QuestionsController : ControllerBase
     {
         private readonly QuestionService _svc;
+        private readonly ResponseService _ressvc;
 
-        public QuestionsController(QuestionService svc)
+        public QuestionsController(QuestionService svc, ResponseService ressvc)
         {
             _svc = svc;
+            _ressvc = ressvc;
         }
 
         // GET: api/Questions
@@ -66,6 +68,13 @@ namespace StackUnderflow.Web.Controllers
             var question = _svc.FindQuestionById(id);
             _svc.DeleteQuestion(question);
             return Ok(question);
+        }
+
+        // GET: api/Questions/5/Responses
+        [HttpGet("{id}/Responses")]
+        public IEnumerable<Response> GetQuestionResponses([FromRoute] int id)
+        {
+            return _ressvc.GetResponsesByQuestionId(id);
         }
     }
 }

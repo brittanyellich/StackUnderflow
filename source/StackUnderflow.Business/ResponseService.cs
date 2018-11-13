@@ -19,8 +19,19 @@ namespace StackUnderflow.Business
             _context = context;
         }
         //Add a response
-        public Response AddResponse(Response response)
+        public Response AddResponse(string text, string userId, int questionId)
         {
+            Response response = new Response()
+            {
+                Text = text,
+                QuestionId = questionId,
+                RespondedBy = userId,
+                RespondedAt = DateTimeOffset.Now,
+                IsSolution = false,
+                Votes = 1,
+                Inappropriate = false,
+                MarkAsDeleted = false
+            };
             _context.Responses.Add(response);
             _context.SaveChangesAsync();
             return response;
