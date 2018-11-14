@@ -45,11 +45,17 @@ namespace StackUnderflow.Web.Controllers
             return Ok(_svc.FindQuestionById(id));
         }
 
-        // PUT: api/Questions/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuestion([FromRoute] string id, [FromBody] Question question)
+        // POST: api/Questions/5
+        [HttpPost("{id}/up")]
+        public async Task<IActionResult> UpvoteQuestion([FromBody] int questionId)
         {
-            _svc.EditQuestion(question, id);
+            _svc.UpvoteQuestion(questionId);
+            return NoContent();
+        }
+        [HttpPost("{id}/down")]
+        public async Task<IActionResult> DownvoteQuestion([FromBody] int questionId)
+        {
+            _svc.DownvoteQuestion(questionId);
             return NoContent();
         }
 
@@ -60,6 +66,7 @@ namespace StackUnderflow.Web.Controllers
             _svc.AddQuestion(question.Text, question.Topic, question.AskedBy);
             return NoContent();
         }
+        
 
         // DELETE: api/Questions/5
         [HttpDelete("{id}")]
