@@ -59,7 +59,7 @@ namespace StackUnderflow.Web.Controllers
             _svc.UpvoteQuestion(question, id);
             return NoContent();
         }
-        [HttpPut("{id}/up")]
+        [HttpPut("{id}/down")]
         public async Task<IActionResult> DownvoteQuestion([FromRoute] string id, [FromBody] Question question)
         {
             _svc.DownvoteQuestion(question, id);
