@@ -8,3 +8,7 @@
 .list {
   list-style-type: none;
 }
+
+.underflowInput {
+  width: 500px;
+}

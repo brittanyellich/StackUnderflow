@@ -1,7 +1,7 @@
 <h1>{{question.text}}</h1>
-<div class="responseInput">
+<div>
   <label for="responseInput"></label>
-  <input [(ngModel)]="content" type="text" for="responseInput">
+  <input [(ngModel)]="content" type="text" for="responseInput" class="underflowInput">
   <div class="btn btn-primary" (click)="respondToQuestion(content)">Respond</div>
 </div>
 

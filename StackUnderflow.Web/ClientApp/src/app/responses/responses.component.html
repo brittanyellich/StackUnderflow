@@ -1,7 +1,7 @@
 <h1>{{response.text}}</h1>
-<div class="commentInput">
+<div class="underflowInput">
   <label for="commentInput"></label>
-  <input [(ngModel)]="content" type="text" for="commentInput">
+  <input [(ngModel)]="content" type="text" for="commentInput" class="underflowInput">
   <div class="btn btn-primary" (click)="commentOnResponse(content)">Comment</div>
 </div>
 
