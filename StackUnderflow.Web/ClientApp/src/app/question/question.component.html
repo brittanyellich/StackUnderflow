@@ -9,11 +9,11 @@
   <h5>Responses</h5>
   <ul>
     <li *ngFor="let response of this.responses; let i = index">
-      <p><span class="votes">{{ response.votes }}</span> <a class="response" [routerLink]='["/responses", i + 1]'>{{ response.text }}</a></p>
+      <p><span class="votes">{{ response.votes }}</span> <a class="response" [routerLink]='["/responses", response.id]'>{{ response.text }}</a></p>
       <p>Responded By: {{ response.respondedBy }} at {{ response.respondedAt }}</p>
       <div class="btn btn-primary" (click)="markResponseInappropriate()">Mark As Inappropriate</div>
-      <div class="btn btn-primary" (click)="upvoteResponse()">+</div>
-      <div class="btn btn-primary" (click)="downvoteResponse()">-</div>
+      <div class="btn btn-primary" (click)="upvoteResponse(response.id)">+</div>
+      <div class="btn btn-primary" (click)="downvoteResponse(response.id)">-</div>
       <p>Comments</p>
       <ul>
         <li>

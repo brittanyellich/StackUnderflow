@@ -44,7 +44,7 @@ namespace StackUnderflow.Business
         public List<Question> GetAllQuestions()
         {
             var questions = _context.Questions.Where(x => !x.Inappropriate);
-            return questions.OrderBy(x => x.Votes).ToList();
+            return questions.OrderByDescending(x => x.Votes).ToList();
         }
 
         public void EditQuestion(Question question)
@@ -70,8 +70,6 @@ namespace StackUnderflow.Business
             var upvotedQuestion = FindQuestionById(questionId);
             upvotedQuestion.Votes++;
             EditQuestion(upvotedQuestion);
-            
-            
         }
 
         public void DownvoteQuestion(int questionId)

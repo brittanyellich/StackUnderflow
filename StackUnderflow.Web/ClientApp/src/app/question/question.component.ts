@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { environment } from "../../environments/environment";
-import { HttpClient } from "@angular/common/http";
-import Question = require("../../models/question");
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import Question = require('../../models/question');
 import question = Question.question;
 import { Router, ActivatedRoute } from '@angular/router';
-import Response1 = require("../../models/response");
+import Response1 = require('../../models/response');
 import response = Response1.response;
 
 @Component({
@@ -30,7 +30,7 @@ export class QuestionComponent implements OnInit {
     }, error => console.error(error));
 
     this.http.get<response[]>(`${environment.apiUrl}questions/${this.id}/responses`).subscribe(result => {
-      console.log(result);
+      console.log('responses', result);
       this.responses = result;
     }, error => console.error(error));
 
@@ -60,14 +60,14 @@ export class QuestionComponent implements OnInit {
   }
 
   upvoteResponse(responseId) {
-    this.http.post<response>(`${environment.apiUrl}Responses/${responseId}/upvote`, responseId).subscribe(result => {
+    this.http.post<response>(`${environment.apiUrl}responses/${responseId}/up`, responseId).subscribe(result => {
       console.log('we did it');
     }, err => console.error(err));
     console.log(responseId);
   }
 
   downvoteResponse(responseId) {
-    this.http.post<response>(`${environment.apiUrl}Responses/${responseId}/downvote`, responseId).subscribe(result => {
+    this.http.post<response>(`${environment.apiUrl}responses/${responseId}/down`, responseId).subscribe(result => {
       console.log('we did it');
     }, err => console.error(err));
     console.log(responseId);
