@@ -46,16 +46,18 @@ namespace StackUnderflow.Web.Controllers
         }
 
         // Upvote response
-        [HttpPost("{id}/upvote")]
+        [HttpPost("{id}/up")]
         public async Task<IActionResult> Upvote([FromBody] int id)
         {
+            _responseService.UpvoteResponse(id);
             return Ok();
         }
 
         // Downvote response
-        [HttpPost("{id}/downvote")]
+        [HttpPost("{id}/down")]
         public async Task<IActionResult> Downvote([FromBody] int id)
         {
+            _responseService.DownvoteResponse(id);
             return Ok();
         }
 

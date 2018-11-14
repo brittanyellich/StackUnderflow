@@ -70,8 +70,6 @@ namespace StackUnderflow.Business
             var upvotedQuestion = FindQuestionById(questionId);
             upvotedQuestion.Votes++;
             EditQuestion(upvotedQuestion);
-            
-            
         }
 
         public void DownvoteQuestion(int questionId)

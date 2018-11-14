@@ -12,8 +12,8 @@
       <p><span class="votes">{{ response.votes }}</span> <a class="response" [routerLink]='["/responses", i + 1]'>{{ response.text }}</a></p>
       <p>Responded By: {{ response.respondedBy }} at {{ response.respondedAt }}</p>
       <div class="btn btn-primary" (click)="markResponseInappropriate()">Mark As Inappropriate</div>
-      <div class="btn btn-primary" (click)="upvoteResponse()">+</div>
-      <div class="btn btn-primary" (click)="downvoteResponse()">-</div>
+      <div class="btn btn-primary" (click)="upvoteResponse(i +1)">+</div>
+      <div class="btn btn-primary" (click)="downvoteResponse(i +1)">-</div>
       <p>Comments</p>
       <ul>
         <li>
