@@ -6,10 +6,10 @@
 <div class="questions">
   <ul>
     <li *ngFor="let question of this.questions; let i = index">
-      <p><span class="votes">{{ question.votes }}</span><a class="question" [routerLink]='["/questions", i + 1]'>{{ question.text }}</a></p>
+      <p><span class="votes">{{ question.votes }}</span><a class="question" [routerLink]='["/questions", question.id]'>{{ question.text }}</a></p>
       <p>Asked By: {{ question.askedBy }} at {{ question.askedAt }}</p>
-      <div class="btn btn-primary" (click)="upvoteQuestion(i +1)">+</div>
-      <div class="btn btn-primary" (click)="downvoteQuestion(i +1)">-</div>
+      <div class="btn btn-primary" (click)="upvoteQuestion(question.id)">+</div>
+      <div class="btn btn-primary" (click)="downvoteQuestion(question.id)">-</div>
     </li>
   </ul>
 </div>
