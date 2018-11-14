@@ -19,8 +19,19 @@ namespace StackUnderflow.Business
             _context = context;
         }
         //Add a response
-        public Response AddResponse(Response response)
+        public Response AddResponse(string text, string userId, int questionId)
         {
+            Response response = new Response()
+            {
+                Text = text,
+                QuestionId = questionId,
+                RespondedBy = userId,
+                RespondedAt = DateTimeOffset.Now,
+                IsSolution = false,
+                Votes = 1,
+                Inappropriate = false,
+                MarkAsDeleted = false
+            };
             _context.Responses.Add(response);
             _context.SaveChangesAsync();
             return response;
@@ -43,16 +54,27 @@ namespace StackUnderflow.Business
             return response;
         }
         
+        public Response FindResponseId(int id)
+        {
+            return _context.Responses.Find(id);
+        }
         
         //Upvote/Downvote a response
         
-        public ResponseVote ResponseVote(ResponseVote vote)
+        public void UpvoteResponse(int responseId)
         {
-            var response = _context.Responses.Where(x => x.Id == vote.ResponseId).FirstOrDefaultAsync().Result;
-            response.Votes = vote.Direction ? response.Votes+1 : response.Votes-1;
-            _context.ResponseVotes.Add(vote);
-            _context.SaveChangesAsync();
-            return vote;
+            var upvotedResponse = FindResponseId(responseId);
+            upvotedResponse.Votes++;
+            _context.Responses.Update(upvotedResponse);
+            _context.SaveChanges();
+        }
+
+        public void DownvoteResponse(int questionId)
+        {
+            var downvotedResponse = FindResponseId(questionId);
+            downvotedResponse.Votes--;
+            _context.Responses.Update(downvotedResponse);
+            _context.SaveChanges();
         }
         
         //Mark response inappropriate

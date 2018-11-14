@@ -1,7 +1,21 @@
-<p>{{question.text}}</p>
+<h1>{{question.text}}</h1>
 <div class="responseInput">
   <label for="responseInput"></label>
   <input [(ngModel)]="content" type="text" for="responseInput">
-  <div class="btn btn-primary" (click)="respondToQuestion(question)">Respond</div>
+  <div class="btn btn-primary" (click)="respondToQuestion(content)">Respond</div>
+</div>
+
+<div>
+  <h5>Responses</h5>
+  <ul>
+    <li *ngFor="let response of this.responses; let i = index">
+      <p><span class="votes">{{ response.votes }}</span> <a class="response" [routerLink]='["/responses", response.id]'>{{ response.text }}</a></p>
+      <p>Responded By: {{ response.respondedBy }} at {{ response.respondedAt }}</p>
+      <p>Is current solution? {{ response.isSolution }}</p>
+      <div class="btn btn-primary" (click)="markResponseInappropriate()">Mark As Inappropriate</div>
+      <div class="btn btn-primary" (click)="upvoteResponse(response.id)">+</div>
+      <div class="btn btn-primary" (click)="downvoteResponse(response.id)">-</div>
+    </li>
+  </ul>
 </div>
 

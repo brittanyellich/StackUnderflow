@@ -1,3 +1,16 @@
-<p>
-  responses works!
-</p>
+<h1>{{response.text}}</h1>
+<div class="commentInput">
+  <label for="commentInput"></label>
+  <input [(ngModel)]="content" type="text" for="commentInput">
+  <div class="btn btn-primary" (click)="commentOnResponse(content)">Comment</div>
+</div>
+
+<div>
+  <h5>Comments</h5>
+  <ul>
+    <li *ngFor="let comment of this.comments">
+      <p><span class="votes">{{ comment.votes }}</span> {{ comment.text }}</p>
+      <p>Commented By: {{ comment.commentedBy }} at {{ comment.commentedAt }}</p>
+    </li>
+  </ul>
+</div>

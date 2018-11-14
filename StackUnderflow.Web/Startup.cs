@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using StackUnderflow.Business;
-using StackUnderflow.Data;
 
 namespace StackUnderflow.Web
 {

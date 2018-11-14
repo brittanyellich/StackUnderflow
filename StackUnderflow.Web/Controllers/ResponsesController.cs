@@ -16,10 +16,12 @@ namespace StackUnderflow.Web.Controllers
     public class ResponsesController : ControllerBase
     {
         private readonly ResponseService _responseService;
+        private readonly CommentService _commentService;
 
-        public ResponsesController(ResponseService responseService)
+        public ResponsesController(ResponseService responseService, CommentService commentService)
         {
-            _responseService = _responseService;
+            _responseService = responseService;
+            _commentService = commentService;
         }
 
         // GET: api/Responses/5
@@ -33,18 +35,35 @@ namespace StackUnderflow.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> PostResponse([FromBody] Response response)
         {
-            return Ok(_responseService.AddResponse(response));
+            _responseService.AddResponse(response.Text, response.RespondedBy, response.QuestionId);
+            return Ok();
         }
         
         // Mark as inappropriate
-        [HttpPost]
+        [HttpPost("{id}/inappropriate")]
         public async Task<IActionResult> Inappropriate([FromBody] int id)
         {
             return Ok(_responseService.MarkResponseAsInappropriate(id));
         }
-        
+
+        // Upvote response
+        [HttpPost("{id}/up")]
+        public async Task<IActionResult> Upvote([FromBody] int id)
+        {
+            _responseService.UpvoteResponse(id);
+            return Ok();
+        }
+
+        // Downvote response
+        [HttpPost("{id}/down")]
+        public async Task<IActionResult> Downvote([FromBody] int id)
+        {
+            _responseService.DownvoteResponse(id);
+            return Ok();
+        }
+
         // Mark as solution
-        [HttpPost]
+        [HttpPost("{id}/solution")]
         public async Task<IActionResult> Solution([FromBody] int id)
         {
             return Ok(_responseService.MarkResponseAsSolution(id));
@@ -56,5 +75,13 @@ namespace StackUnderflow.Web.Controllers
         {
             return Ok(_responseService.DeleteResponse(id));
         }
+
+        // GET: api/Responses/5/Comments
+        [HttpGet("{id}/Comments")]
+        public List<Comment> GetResponseComments([FromRoute] int id)
+        {
+            return _commentService.GetCommentsByResponse(id);
+        }
+
     }
 }
