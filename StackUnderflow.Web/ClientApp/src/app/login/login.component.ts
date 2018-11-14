@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './../../providers/auth-service/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     const credentials = {UserName: this.userName, Password: this.password};
-    this.http.post('https://localhost:5001/api/auth/login', credentials, {
+    this.http.post(`${environment.apiUrl}auth/login`, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })

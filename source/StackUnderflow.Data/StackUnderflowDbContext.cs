@@ -15,6 +15,7 @@ namespace StackUnderflow.Data
         public DbSet<QuestionVote> QuestionVotes { get; set; }
         public DbSet<ResponseVote> ResponseVotes { get; set; }
         public DbSet<CommentVote> CommentVotes { get; set; }
+        public DbSet<User> Users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()

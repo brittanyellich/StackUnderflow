@@ -9,4 +9,8 @@
     <ProjectReference Include="..\StackUnderflow.Entities\StackUnderflow.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Core" Version="1.5.0" />
+  </ItemGroup>
+
 </Project>

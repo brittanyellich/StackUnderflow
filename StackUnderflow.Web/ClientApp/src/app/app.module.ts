@@ -18,6 +18,7 @@ import { QuestionComponent } from './question/question.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { LoginComponent } from './login/login.component';
     CommentsComponent,
     LoginComponent,
     QuestionComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -49,7 +51,8 @@ import { LoginComponent } from './login/login.component';
         path: 'questions/:id',
         component: QuestionComponent
       },
-      { path: 'login', component: LoginComponent}
+      { path: 'login', component: LoginComponent},
+      { path: 'register', component: RegisterComponent}
     ])
   ],
   providers: [

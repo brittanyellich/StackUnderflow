@@ -3,4 +3,5 @@
 <label for="password">Password</label>
 <input [(ngModel)]="password" id="password" name="password" type="password">
 <button (click)="login()">Login</button>
+<a [routerLink]="['/register']">Or Register</a>
 <p>{{ error }}</p>

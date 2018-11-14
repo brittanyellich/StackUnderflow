@@ -34,6 +34,7 @@ namespace StackUnderflow.Web
             services.AddTransient<CommentService>();
             services.AddTransient<QuestionService>();
             services.AddTransient<ResponseService>();
+            services.AddTransient<AuthService>();
             services.AddTransient<UserHelper>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
