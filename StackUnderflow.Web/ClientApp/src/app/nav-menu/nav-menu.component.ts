@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-menu',
@@ -11,7 +11,7 @@ export class NavMenuComponent {
   public loggedIn = false;
 
   constructor(private router: Router) {
-    this.router.events.subscribe(val => this.isLoggedIn())
+    this.router.events.subscribe(val => this.isLoggedIn());
   }
 
   isLoggedIn() {
@@ -24,6 +24,7 @@ export class NavMenuComponent {
 
   logout() {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('username');
   }
 
   collapse() {

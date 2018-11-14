@@ -36,8 +36,9 @@ export class QuestionsComponent implements OnInit {
       topic: 1
     };
     this.http.post<question>(`${environment.apiUrl}questions`, payload).subscribe(result => {
-      this.refreshData();
     }, err => console.error(err));
+    this.refreshData();
+
   }
 
   upvoteQuestion(questionId) {

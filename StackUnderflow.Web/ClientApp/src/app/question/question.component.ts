@@ -29,12 +29,10 @@ export class QuestionComponent implements OnInit {
     });
 
     this.http.get<question>(`${environment.apiUrl}questions/${this.id}`).subscribe(result => {
-      console.log(result);
       this.question = result;
     }, error => console.error(error));
 
     this.http.get<response[]>(`${environment.apiUrl}questions/${this.id}/responses`).subscribe(result => {
-      console.log('responses', result);
       this.responsesSubject.next(result);
       this.responses = this.responsesSubject.getValue();
     }, error => console.error(error));
@@ -48,7 +46,10 @@ export class QuestionComponent implements OnInit {
 
     this.http.post<response>(`${environment.apiUrl}responses`, payloadResponse).subscribe(result => {
       console.log('we did it');
-      this.refreshData();
+      setTimeout(() => {
+        this.refreshData();
+
+      }, 100);
     }, err => console.error(err));
     console.log(content);
   }
@@ -80,7 +81,10 @@ export class QuestionComponent implements OnInit {
   markAsSolution(responseId) {
     this.http.post<response>(`${environment.apiUrl}Responses/${responseId}/solution`, responseId).subscribe(result => {
       console.log('we did it');
-      this.refreshData();
+      setTimeout(() => {
+        this.refreshData();
+
+      }, 100);
     }, err => console.error(err));
     console.log(responseId);
   }

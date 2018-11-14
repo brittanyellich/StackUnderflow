@@ -16,6 +16,10 @@ export class ResponsesComponent implements OnInit {
 
 
   constructor(public http: HttpClient, public route: ActivatedRoute) {
+    this.refreshData();
+  }
+
+  refreshData() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
@@ -29,9 +33,7 @@ export class ResponsesComponent implements OnInit {
       console.log(result);
       this.comments = result;
     }, error => console.error(error));
-
   }
-
   ngOnInit() {
   }
 
@@ -44,6 +46,7 @@ export class ResponsesComponent implements OnInit {
 
     this.http.post<comment>(`${environment.apiUrl}Comments`, payloadResponse).subscribe(result => {
         console.log('we did it');
+        this.refreshData();
       },
       err => console.error(err));
     console.log(content);
