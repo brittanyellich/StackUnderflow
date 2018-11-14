@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using StackUnderflow.Business;
+using StackUnderflow.Data;
 using StackUnderflow.Entities;
 
 namespace StackUnderflow.Web.Controllers
@@ -12,16 +16,24 @@ namespace StackUnderflow.Web.Controllers
     [Route("api/auth")]
     public class AuthController : Controller
     {
+        private AuthService _AuthService;
+        public AuthController(AuthService authService)
+        {
+            _AuthService = authService;
+        }
+        
         // GET api/values
         [HttpPost, Route("login")]
-        public IActionResult Login([FromBody]LoginModel user)
+        public  IActionResult Login([FromBody]CreateUser user)
         {
             if (user == null)
             {
                 return BadRequest("Invalid client request");
             }
+
+            var validLogin = _AuthService.Login(user).Result;
  
-            if (user.UserName == "admin" && user.Password == "password")
+            if (validLogin)
             {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -37,10 +49,13 @@ namespace StackUnderflow.Web.Controllers
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
                 return Ok(new { Token = tokenString });
             }
-            else
-            {
-                return Unauthorized();
-            }
+            return Unauthorized();
+        }
+
+        [HttpPost, Route("register")]
+        public IActionResult Register([FromBody]CreateUser user)
+        {
+            return Ok(_AuthService.Register(user));
         }
     }
 }

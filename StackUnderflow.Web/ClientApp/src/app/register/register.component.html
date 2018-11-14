@@ -1,0 +1,8 @@
+<label for="username">UserName</label>
+<input [(ngModel)]="user.Username" id="username" name="username" type="text">
+<label for="password">Password</label>
+<input [(ngModel)]="user.Password" id="password" name="password" type="password">
+<label for="confirmPassword">Confirm Password</label>
+<input [(ngModel)]="confirmPassword" id="confirmPassword" name="confirmPassword" type="password">
+<button (click)="register()">Register</button>
+<p>{{ error }}</p>
