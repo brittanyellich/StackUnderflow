@@ -32,7 +32,7 @@ export class QuestionsComponent implements OnInit {
   addQuestion(content) {
     const payload = {
       text: content,
-      askedBy: 'Rob',
+      askedBy: localStorage.getItem('username'),
       topic: 1
     };
     this.http.post<question>(`${environment.apiUrl}questions`, payload).subscribe(result => {

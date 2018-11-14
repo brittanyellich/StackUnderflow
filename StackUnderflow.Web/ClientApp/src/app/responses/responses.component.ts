@@ -38,7 +38,7 @@ export class ResponsesComponent implements OnInit {
   commentOnResponse(content) {
     const payloadResponse = {
       text: content,
-      commentedBy: 'Rob',
+      commentedBy: localStorage.getItem('username'),
       responseId: this.id
     };
 

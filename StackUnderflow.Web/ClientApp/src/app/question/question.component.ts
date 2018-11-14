@@ -42,7 +42,7 @@ export class QuestionComponent implements OnInit {
   respondToQuestion(content) {
     const payloadResponse = {
       text: content,
-      userId: 'Rob',
+      respondedBy: localStorage.getItem('username'),
       questionId: this.id
     };
 
