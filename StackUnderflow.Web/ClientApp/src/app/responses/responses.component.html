@@ -7,7 +7,7 @@
 
 <div>
   <h5>Comments</h5>
-  <ul>
+  <ul class="list">
     <li *ngFor="let comment of this.comments">
       <p><span class="votes">{{ comment.votes }}</span> {{ comment.text }}</p>
       <p>Commented By: {{ comment.commentedBy }} at {{ comment.commentedAt }}</p>

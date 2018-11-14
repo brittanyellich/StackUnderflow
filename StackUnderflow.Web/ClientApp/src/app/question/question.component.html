@@ -7,12 +7,12 @@
 
 <div>
   <h5>Responses</h5>
-  <ul>
+  <ul class="list">
     <li *ngFor="let response of this.responses; let i = index">
       <p><span class="votes">{{ response.votes }}</span> <a class="response" [routerLink]='["/responses", response.id]'>{{ response.text }}</a></p>
       <p>Responded By: {{ response.respondedBy }} at {{ response.respondedAt }}</p>
       <p>Is current solution? {{ response.isSolution }}</p>
-      <div class="btn btn-primary" (click)="markResponseInappropriate()">Mark As Inappropriate</div>
+      <div class="btn btn-primary" (click)="markAsSolution(response.id)">Mark As Solution</div>
       <div class="btn btn-primary" (click)="upvoteResponse(response.id)">+</div>
       <div class="btn btn-primary" (click)="downvoteResponse(response.id)">-</div>
     </li>

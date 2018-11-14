@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+.votes {
+  font-weight: bold;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.list {
+  list-style-type: none;
+}

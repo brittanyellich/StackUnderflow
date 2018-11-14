@@ -4,7 +4,7 @@
   <div class="btn btn-primary"(click)="addQuestion(content)">Ask a question</div>
 </div>
 <div class="questions">
-  <ul>
+  <ul class="list">
     <li *ngFor="let question of this.questions; let i = index">
       <p><span class="votes">{{ question.votes }}</span><a class="question" [routerLink]='["/questions", question.id]'>{{ question.text }}</a></p>
       <p>Asked By: {{ question.askedBy }} at {{ question.askedAt }}</p>

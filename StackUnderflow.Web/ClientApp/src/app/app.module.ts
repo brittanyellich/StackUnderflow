@@ -43,16 +43,10 @@ import { RegisterComponent } from './register/register.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      {
-        path: 'questions',
-        component: QuestionsComponent,
-      },
-      {
-        path: 'questions/:id',
-        component: QuestionComponent
-      },
+      { path: 'questions', component: QuestionsComponent},
+      { path: 'questions/:id', component: QuestionComponent},
       { path: 'login', component: LoginComponent},
-      { path: 'register', component: RegisterComponent}
+      { path: 'register', component: RegisterComponent},
       { path: 'responses/:id', component: ResponsesComponent}
     ])
   ],

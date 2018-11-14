@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser;
+using IdentityUser = Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser;
 
 namespace StackUnderflow.Data
 {
