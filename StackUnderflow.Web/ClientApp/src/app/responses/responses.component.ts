@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { environment } from "../../environments/environment";
-import { HttpClient } from "@angular/common/http";
-import Response = require("../../models/response");
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import Response = require('../../models/response');
 import response = Response.response;
 import { Router, ActivatedRoute } from '@angular/router';
-import Comment = require("../../models/comment");
+import Comment = require('../../models/comment');
 import comment = Comment.comment;
 
 @Component({

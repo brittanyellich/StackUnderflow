@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import Question = require('../../models/question');
 import question = Question.question;
 import { Router, ActivatedRoute } from '@angular/router';
-import Response1 = require('../../models/response');
-import response = Response1.response;
+import Response = require('../../models/response');
+import response = Response.response;
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -22,7 +22,6 @@ export class QuestionComponent implements OnInit {
   public responsesSubject: BehaviorSubject<any> = new BehaviorSubject({});
   constructor(public http: HttpClient, public route: ActivatedRoute) {
    this.refreshData();
-
   }
 
   ngOnInit() {
@@ -47,11 +46,11 @@ export class QuestionComponent implements OnInit {
   respondToQuestion(content) {
     const payloadResponse = {
       text: content,
-      askedBy: 'Rob',
+      userId: 'Rob',
       questionId: this.id
     };
 
-    this.http.post<response>(`${environment.apiUrl}Responses`, payloadResponse).subscribe(result => {
+    this.http.post<response>(`${environment.apiUrl}responses`, payloadResponse).subscribe(result => {
       console.log('we did it');
       this.refreshData();
     }, err => console.error(err));

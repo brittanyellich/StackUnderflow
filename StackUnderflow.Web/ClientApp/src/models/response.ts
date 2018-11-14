@@ -1,7 +1,7 @@
 export interface response {
   id: number;
   text: string;
-  respondedBy: string;
+  userId: string;
   respondedAt: any;
   isSolution: boolean;
   votes: number;

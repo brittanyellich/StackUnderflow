@@ -3,7 +3,6 @@ export interface comment {
   text: string;
   commentedBy: string;
   commentedAt: any;
-  isSolution: boolean;
   votes: number;
-  questionId: number;
+  responseId: number;
 }

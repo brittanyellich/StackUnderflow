@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { question } from '../../models/question';
+import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
@@ -11,7 +12,7 @@ export class QuestionsComponent implements OnInit {
 
   closeResult: string;
   public questions;
-
+  public questionsSubject: BehaviorSubject<any> = new BehaviorSubject({});
   constructor(public http: HttpClient) {
    this.refreshData();
   }
@@ -25,8 +26,8 @@ export class QuestionsComponent implements OnInit {
         'Authorization': 'Bearer ' + token,
         'Content-Type': 'application/json'
     })}).subscribe(result => {
-      console.log(result);
-      this.questions = result;
+      this.questionsSubject.next(result);
+      this.questions = this.questionsSubject.getValue();
     }, error => console.error(error));
   }
   addQuestion(content) {
@@ -36,26 +37,20 @@ export class QuestionsComponent implements OnInit {
       topic: 1
     };
     this.http.post<question>(`${environment.apiUrl}questions`, payload).subscribe(result => {
-      console.log('we did it');
       this.refreshData();
     }, err => console.error(err));
-    console.log(content);
   }
 
   upvoteQuestion(questionId) {
     this.http.post<question>(`${environment.apiUrl}questions/${questionId}/up`, questionId).subscribe(result => {
-      console.log('we did it');
       this.refreshData();
     }, err => console.error(err));
-    console.log(questionId);
   }
   // p00
   downvoteQuestion(questionId) {
     this.http.post<question>(`${environment.apiUrl}questions/${questionId}/down`, questionId).subscribe(result => {
-      console.log('we did it');
       this.refreshData();
     }, err => console.error(err));
-    console.log(questionId);
   }
 }
 
