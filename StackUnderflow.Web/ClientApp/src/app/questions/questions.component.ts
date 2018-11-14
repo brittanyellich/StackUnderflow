@@ -38,15 +38,15 @@ export class QuestionsComponent implements OnInit {
     console.log(content);
   }
 
-  upvoteQuestion(questionId, ) {
-    this.http.post<question>(`${environment.apiUrl}questions/${questionId}/up`, payload).subscribe(result => {
+  upvoteQuestion(questionId) {
+    this.http.post<question>(`${environment.apiUrl}questions/${questionId}/up`, questionId).subscribe(result => {
       console.log('we did it');
     }, err => console.error(err));
     console.log(questionId);
   }
   // p00
   downvoteQuestion(questionId) {
-    this.http.post<question>(`${environment.apiUrl}questions/${questionId}/down`, payload).subscribe(result => {
+    this.http.post<question>(`${environment.apiUrl}questions/${questionId}/down`, questionId).subscribe(result => {
       console.log('we did it');
     }, err => console.error(err));
     console.log(questionId);

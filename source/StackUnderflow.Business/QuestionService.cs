@@ -47,10 +47,8 @@ namespace StackUnderflow.Business
             return questions.OrderBy(x => x.Votes).ToList();
         }
 
-        public void EditQuestion(Question question, string userId)
+        public void EditQuestion(Question question)
         {
-            if (question.AskedBy != userId) return;
-            
             _context.Questions.Update(question);
             _context.SaveChanges();
 
@@ -67,42 +65,20 @@ namespace StackUnderflow.Business
             _context.Questions.Remove(question);
         }
 
-        public void UpvoteQuestion(Question question, string userId)
+        public void UpvoteQuestion(int questionId)
         {
-            Question upvotedQuestion = FindQuestionById(question.Id);
-            if (_userHelper.UserHasVotedQuestion(upvotedQuestion, userId))
-            {
-                return;
-            }
-            
-            QuestionVote newVote = new QuestionVote
-            {
-                QuestionId = question.Id,
-                UserId = userId,
-                Direction = true
-            };
-            
+            var upvotedQuestion = FindQuestionById(questionId);
             upvotedQuestion.Votes++;
-            EditQuestion(upvotedQuestion, userId);
+            EditQuestion(upvotedQuestion);
             
             
         }
 
-        public void DownvoteQuestion(Question question, string userId)
+        public void DownvoteQuestion(int questionId)
         {
-            Question downvotedQuestion = FindQuestionById(question.Id);
-            if (_userHelper.UserHasVotedQuestion(downvotedQuestion, userId))
-            {
-                return;
-            }
-            QuestionVote newVote = new QuestionVote
-            {
-                QuestionId = question.Id,
-                UserId = userId,
-                Direction = false
-            };
+            var downvotedQuestion = FindQuestionById(questionId);
             downvotedQuestion.Votes--;
-            EditQuestion(downvotedQuestion, userId);
+            EditQuestion(downvotedQuestion);
         }
         //Mark question inappropriate (Stretch goal)
         //Search questions (stretch goal)
