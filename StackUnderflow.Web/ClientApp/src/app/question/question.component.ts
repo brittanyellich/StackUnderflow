@@ -1,11 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import Question = require('../../models/question');
-import question = Question.question;
 import { Router, ActivatedRoute } from '@angular/router';
-import Response = require('../../models/response');
-import response = Response.response;
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
