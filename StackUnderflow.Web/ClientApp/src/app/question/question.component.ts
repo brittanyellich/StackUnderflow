@@ -6,6 +6,7 @@ import question = Question.question;
 import { Router, ActivatedRoute } from '@angular/router';
 import Response1 = require('../../models/response');
 import response = Response1.response;
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-question',
@@ -18,8 +19,16 @@ export class QuestionComponent implements OnInit {
 
   public question;
   public responses;
-
+  public responsesSubject: BehaviorSubject<any> = new BehaviorSubject({});
   constructor(public http: HttpClient, public route: ActivatedRoute) {
+   this.refreshData();
+
+  }
+
+  ngOnInit() {
+  }
+
+  refreshData() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
@@ -31,14 +40,10 @@ export class QuestionComponent implements OnInit {
 
     this.http.get<response[]>(`${environment.apiUrl}questions/${this.id}/responses`).subscribe(result => {
       console.log('responses', result);
-      this.responses = result;
+      this.responsesSubject.next(result);
+      this.responses = this.responsesSubject.getValue();
     }, error => console.error(error));
-
   }
-
-  ngOnInit() {
-  }
-
   respondToQuestion(content) {
     const payloadResponse = {
       text: content,
@@ -48,6 +53,7 @@ export class QuestionComponent implements OnInit {
 
     this.http.post<response>(`${environment.apiUrl}Responses`, payloadResponse).subscribe(result => {
       console.log('we did it');
+      this.refreshData();
     }, err => console.error(err));
     console.log(content);
   }
@@ -55,6 +61,7 @@ export class QuestionComponent implements OnInit {
   markResponseInappropriate(responseId) {
     this.http.post<response>(`${environment.apiUrl}Responses/${responseId}/inappropriate`, responseId).subscribe(result => {
       console.log('we did it');
+      this.refreshData();
     }, err => console.error(err));
     console.log(responseId);
   }
@@ -62,6 +69,7 @@ export class QuestionComponent implements OnInit {
   upvoteResponse(responseId) {
     this.http.post<response>(`${environment.apiUrl}responses/${responseId}/up`, responseId).subscribe(result => {
       console.log('we did it');
+      this.refreshData();
     }, err => console.error(err));
     console.log(responseId);
   }
@@ -69,6 +77,7 @@ export class QuestionComponent implements OnInit {
   downvoteResponse(responseId) {
     this.http.post<response>(`${environment.apiUrl}responses/${responseId}/down`, responseId).subscribe(result => {
       console.log('we did it');
+      this.refreshData();
     }, err => console.error(err));
     console.log(responseId);
   }
@@ -76,6 +85,7 @@ export class QuestionComponent implements OnInit {
   markAsSolution(responseId) {
     this.http.post<response>(`${environment.apiUrl}Responses/${responseId}/solution`, responseId).subscribe(result => {
       console.log('we did it');
+      this.refreshData();
     }, err => console.error(err));
     console.log(responseId);
   }

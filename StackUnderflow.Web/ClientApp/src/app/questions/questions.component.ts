@@ -13,6 +13,13 @@ export class QuestionsComponent implements OnInit {
   public questions;
 
   constructor(public http: HttpClient) {
+   this.refreshData();
+  }
+
+  ngOnInit() {
+  }
+
+  refreshData() {
     const token = localStorage.getItem('jwt');
     this.http.get<question[]>(`${environment.apiUrl}questions`, {headers: new HttpHeaders({
         'Authorization': 'Bearer ' + token,
@@ -22,10 +29,6 @@ export class QuestionsComponent implements OnInit {
       this.questions = result;
     }, error => console.error(error));
   }
-
-  ngOnInit() {
-  }
-
   addQuestion(content) {
     const payload = {
       text: content,
@@ -34,6 +37,7 @@ export class QuestionsComponent implements OnInit {
     };
     this.http.post<question>(`${environment.apiUrl}questions`, payload).subscribe(result => {
       console.log('we did it');
+      this.refreshData();
     }, err => console.error(err));
     console.log(content);
   }
@@ -41,6 +45,7 @@ export class QuestionsComponent implements OnInit {
   upvoteQuestion(questionId) {
     this.http.post<question>(`${environment.apiUrl}questions/${questionId}/up`, questionId).subscribe(result => {
       console.log('we did it');
+      this.refreshData();
     }, err => console.error(err));
     console.log(questionId);
   }
@@ -48,6 +53,7 @@ export class QuestionsComponent implements OnInit {
   downvoteQuestion(questionId) {
     this.http.post<question>(`${environment.apiUrl}questions/${questionId}/down`, questionId).subscribe(result => {
       console.log('we did it');
+      this.refreshData();
     }, err => console.error(err));
     console.log(questionId);
   }
