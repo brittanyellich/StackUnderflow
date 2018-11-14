@@ -48,10 +48,10 @@ namespace StackUnderflow.Web.Controllers
 
         // POST: api/Comments
         [HttpPost]
-        public async Task<IActionResult> PostComment([FromRoute] int responseId, [FromBody] string text, string username)
+        public async Task<IActionResult> PostComment([FromBody] Comment comment)
         {
-            Comment comment = _cs.AddComment(responseId, text, username);
-            return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
+            Comment commentToAdd = _cs.AddComment(comment.ResponseId, comment.Text, comment.CommentedBy);
+            return NoContent();
         }
 
         // DELETE: api/Comments/5
